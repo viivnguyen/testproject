@@ -1,0 +1,83 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+options(repos = c(CRAN = "https://cran.r-project.org"))
+```
+
+# testproject
+
+The `testproject` package is designed to streamline the analysis of survey and experimental data, with a specific focus on demographic and quality-of-life surveys. It includes tools for data cleaning, transformation, visualization, and summarization, making it easier for researchers and statisticians to extract meaningful insights from complex survey datasets.
+
+## Background
+
+Survey data often requires significant preprocessing and analysis to uncover actionable insights. This package was developed to simplify these tasks, with built-in functions to:
+- Convert categorical survey responses into numeric formats for analysis.
+- Generate customizable visualizations to explore relationships within data.
+- Summarize survey results using proportion tables and counts.
+
+The package's primary dataset, `asian_american`, provides an example of a well-structured survey dataset, sourced from the [City of Austin Open Data Portal](https://data.austintexas.gov). This dataset focuses on quality-of-life factors among Asian American populations, including demographic, social, and emotional well-being data.
+
+
+## Installation
+You can install this package from GitHub:
+```{r}
+install.packages("devtools")
+devtools::install_github("viivnguyen/testproject")
+```
+
+## Examples
+### Example 1: Convert Survey Responses to Numeric Levels
+Easily transform categorical survey responses into numeric formats for modeling or analysis.
+
+```{r}
+library(Stat108Project2)
+
+data <- data.frame(proficiency = c("Well", "Not at all", NA, "Not well", "Very well"))
+response_scale <- c("Not at all", "Not well", "Well", "Very well")
+
+data <- surveylevels(data, column = "proficiency", ordered_levels = response_scale)
+print(data)
+```
+
+### Example 2: Summarize Survey Data
+Create a proportion table to analyze the distribution of responses across categories.
+
+```{r}
+proptable(asian_american,
+          x = "education",
+          y = "english_speaking",
+          include_total = TRUE)
+```
+
+### Example 3: Visualize Survey Data
+Generate a scatter plot to explore relationships within the dataset.
+
+```{r}
+scatter(asian_american,
+        x = "age",
+        y = "income",
+        color = "education",
+        title = "Income by Age and Education Level",
+        xlab = "Age (years)",
+        ylab = "Income",
+        add_trendline = TRUE)
+```
+
+## Features
+- Data Conversion: Seamlessly convert survey responses into numeric formats.
+- Summarization: Quickly create proportion tables for categorical variables.
+- Visualization: Generate detailed and customizable scatter plots.
+For more detailed documentation, please refer to the package vignette.
+
+## Citation
+The dataset used in this package is sourced from the City of Austin Open Data Portal.
